@@ -40,8 +40,8 @@ for more information about the options available.
 ## Accessing Tickets
 
 ```php
-sirportly.tickets                   
-sirportly.ticket('AB-123123')       
+$sirportly->sirportly.tickets();                   
+$sirportly->ticket(array('ticket' => 'AB-123123');      
 ```
 
 ## Changing ticket properties
