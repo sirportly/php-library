@@ -51,8 +51,7 @@ exactly the same as the corresponding API method and further details can be foun
 [documentation](https://atech.sirportly.com/knowledge/4/api-specification/tickets/changing-ticket-properties). 
 
 
-```php
-
+```PHP
 # Change a ticket status
 $sirportly->update_ticket(array('ticket' => 'GI-857090', 'status' => 'waiting for staff'));
 
@@ -67,33 +66,21 @@ Once an update has been carried out, the original ticket object will be updated 
 
 ## Posting updates to tickets
 
-Posting updates to tickets is a simple affair and the `post_update` method on a `Sirportly::Ticket`
-will accept the same parameters as defined in the [documentation](http://www.sirportly.com/docs/api-specification/tickets/posting-an-update).
+Posting updates to tickets is a simple affair and the `post_update` function will accept the same parameters as defined in the [documentation](http://www.sirportly.com/docs/api-specification/tickets/posting-an-update).
 
-As you will see from the examples below, you can pass a `Sirportly::User` instance to `user` and a 
-`Sirportly::Customer` instance to `customer` although strings are perfectly acceptable too.
-
-The `post_update` method will return a `Sirportly::TicketUpdate` instance and the new update will
-be added to the `updates` array on the original ticket.
-
-```ruby
-ticket = sirportly.ticket('AB-123123')
-
+```php
 # To post a system message without a user
-ticket.post_update(:message => "My Example Message")
+$sirportly->post_update(array('ticket' => 'GI-857090', 'message' => 'My Example Message' ));
 
 # To post an update as the ticket customer
-ticket.post_update(:message => "My Example Message", :customer => ticket.customer)
+$sirportly->post_update(array('ticket' => 'GI-857090', 'message' => 'My Example Message', 'customer' => 'Daniel' ));
 
 # To post an update as a user
-user = sirportly.user('adam')
-ticket.post_update(:message => "My Example Message", :user => user)
-
-# To post an update and e-mail it to the customer
-ticket.post_update(:message => "My Example", :user => 'adam', :outbound_address => 'support@yourdomain.com')
+$sirportly->post_update(array('ticket' => 'GI-857090', 'message' => 'My Example Message', :user => 'Daniel')
 
 # To post a private update as a user
-ticket.post_update(:message => "Private Msg", :private => true, :user => 'charlie')
+$sirportly->post_update(array('ticket' => 'GI-857090', 'message' => 'Private Msg', 'user' => 'Daniel', 'private' => true ));
+
 ```
 
 ## Executing Macros
