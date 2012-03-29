@@ -40,7 +40,7 @@ for more information about the options available.
 ## Accessing Tickets
 
 ```php
-$sirportly->sirportly.tickets();                   
+$sirportly->tickets();                   
 $sirportly->ticket(array('ticket' => 'AB-123123');      
 ```
 
