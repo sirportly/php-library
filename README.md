@@ -1,4 +1,4 @@
-# Sirportly Ruby API
+# Sirportly PHP API
 
 This library allows you to interact with your Sirportly data using PHP.
 
