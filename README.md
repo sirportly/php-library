@@ -44,33 +44,23 @@ sirportly.tickets
 sirportly.ticket('AB-123123')       
 ```
 
-You can also access tickets through filter objects.
-
-```ruby
-filter = sirportly.filters.first    #=> A Sirportly::Filter object
-filter.tickets                      #=> A Sirportly::DataSet of objects (paginated)
-filter.tickets(:page => 2)          #=> The second page of tickets
-filter.tickets(:user => 'adam')     #=> The tickets as if being accessed by 'adam'
-```
-
 ## Changing ticket properties
 
-If you wish to change properties of a ticket, you can use the `update` method. This method behaves
+If you wish to change properties of a ticket, you can use `update_ticket`. This function behaves
 exactly the same as the corresponding API method and further details can be found in the 
 [documentation](https://atech.sirportly.com/knowledge/4/api-specification/tickets/changing-ticket-properties). 
-You can pass strings, IDs or `Sirportly::DataObject` objects as values. 
 
-```ruby
-ticket = sirportly.ticket('AB-123123')
+
+```php
 
 # Change a ticket status
-ticket.update(:status => "waiting for staff")
+$sirportly->update_ticket(array('ticket' => 'GI-857090', 'status' => 'waiting for staff'));
 
 # Change a ticket priority
-ticket.update(:priority => "low")
+$sirportly->update_ticket(array('ticket' => 'GI-857090', 'priority' => 'low'));
 
 # Change multiple attributes
-ticket.update(:team => "1st line support", :user => "dave")
+$sirportly->update_ticket(array('ticket' => 'GI-857090', 'team' => '1st line support', 'user => 'dave'));
 ```
 
 Once an update has been carried out, the original ticket object will be updated to include the new properties.
