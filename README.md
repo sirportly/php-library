@@ -85,24 +85,20 @@ $sirportly->post_update(array('ticket' => 'GI-857090', 'message' => 'Private Msg
 
 ## Executing Macros
 
-If you wish to execute one of your macros on a ticket, you can use the `run_macro` method
+If you wish to execute one of your macros on a ticket, you can use the `run_macro` function
 which accepts the ID or name of the macro you wish to execute. If executed successfully,
-it will return true and the original ticket properties will be updated. If it fails, an
-exception will be raised or the method will return false.
+it will return true and the original ticket properties will be updated. 
 
-```ruby
-ticket = sirportly.ticket('AB-123123')
-ticket.run_macro('Mark as waiting for staff')
+```php
+$sirportly->run_macro( array('ticket' => 'GI-857090', 'macro' => 'Mark as waiting for staff') );
 ````
 
 ## Adding follow ups
 
-Adding to follow ups to tickets can be achieved by executing the `add_follow_up` method on a 
-`Sirportly::Ticket` instance.
+Adding to follow ups to tickets can be achieved by executing the `add_follow_up`function.
 
-```ruby
-ticket = sirportly.ticket('AB-123123')
-ticket.add_follow_up(:actor => 'adam', :status => 'resolved', :run_at => '2 days from now') #=> true
+```php
+$sirportly->add_follow_up( array('ticket' => 'GI-857090', 'actor' => 'Daniel', 'status' => 'resolved', 'run_at' => 'yyyy-mm-dd hh-mm') );
 ```
 
 The `run_at` attribute should be a timestamp as outlined on our
@@ -113,15 +109,15 @@ the API documentation.
 
 You can create users (staff members) via the API.
 
-```ruby
-user_properties = {
-  :first_name    => 'John',
-  :last_name     => 'Particle',
-  :email_address => 'john@testcompany.com',
-  :admin_access  => true
-}
+```php
+$user_properties = array(
+    'first_name' => 'John', 
+    'first_name' => 'Particle', 
+    'email_address' => 'john@testcompany.com', 
+    'admin_access' => true, 
+    );
 
-user = sirportly.create_user(user_properties)  #=> A Sirportly::User instance
+$sirportly->create_user($user_properties);
 ```
 
 There are other attributes available, which can be viewed on the [API docs](http://www.sirportly.com/docs/api-specification/users/create-new-user).
@@ -133,42 +129,16 @@ You do not need to create individual customers. These are created automatically 
 The Sirportly API provides access to all the data objects stored in your Sirportly database.
 At the current time, these cannot be edited through the API. 
 
-```ruby
-sirportly.statuses                  #=> Set of all statuses as Sirportly::Status objects
-sirportly.priorities.first          #=> A Sirportly::Priority object for the first record
-
-sirportly.brands.first.departments  #=> Array of Sirportly::Department objects
-
-sirportly.user('adam')              #=> Returns a Sirportly::User object
-sirportly.customer('Dave Smith')    #=> Returns a Sirportly::Customer object
+```PHP
+$sirportly->statuses();
+$sirportly->priorities();
+$sirportly->brands();
+$sirportly->users();
+$sirportly->customers();
 ```
 
 You can access the following objects using this method: brands, departments, escalation_paths,
 filters, priorities, slas, statuses, teams and users.
-
-## Pagination
-
-Some results from the API are paginated as outlined below. By default, it will always 
-return the first page.
-
-```ruby
-users = sirportly.users(:page => 1)
-
-users.each do |user|
-  user.is_a?(Sirportly::User)     #=> true
-  user.full_name                  #=> "Adam Cooke"
-  user.teams                      #=> Array of Sirportly::Team objects
-  user.teams.first.name           #=> "First Line Support"
-end
-
-users.page              #=> 1
-users.total_records     #=> 35
-users.pages             #=> 2
-users.offset            #=> 0
-```
-
-If a result set is not paginated, the methods outlined above will be nil. Pagination will only occur 
-at the top level of results and does not happen on arrays within objects.
 
 ## Executing SPQL queries
 
@@ -176,18 +146,6 @@ Sirportly includes a powerful query language called SPQL (SirPortly Query Langua
 to query your ticket data through the API. This is primarily used to generate reports however can also
 be used to return data for your own purposes.
 
-```ruby
-query = sirportly.spql('SELECT COUNT, brand.name FROM tickets GROUP BY brand.name')
-query.fields          #=> ["COUNT", "brand.name"]
-query.results         #=> [[123, "Appli"], [456, "aTech Media"], [789, "aTech Telecoms"], [123, "Sirportly"]]
-query.query           #=> "SELECT COUNT, brand.name FROM tickets GROUP BY brand.name"
-query.class.to_s      #=> Sirportly::SPQLQuery
-```
-
-If you execute a query which is invalid, a `Sirportly::Errors::ValidationError` will be raised with some
-information about the error.
-
-```php
-query = sirportly.spql('SELECT COUNT FROM non_existent_table')
-Sirportly::Errors::ValidationError: ["Invalid FROM table specified"]
+```PHP
+$sirportly->spql(array('spql' => 'SELECT COUNT, status.name FROM tickets GROUP BY status.name'));
 ```
