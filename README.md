@@ -1,20 +1,6 @@
 # Sirportly Ruby API
 
-This library allows you to interact with your Sirportly data using a simple to use
-Ruby interface.
-
-**This library is still under development and will change considerably over the next
-few releases as new functionality is added.**
-
-## Installation
-
-To install the library, you just need to install the Gem.
-
-```
-[sudo] gem install sirportly
-```
-
-If you have a Gemfile, you can just include `sirportly` in this and run `bundle install`.
+This library allows you to interact with your Sirportly data using PHP.
 
 ## Setting up a Sirportly Client
 
@@ -53,12 +39,9 @@ for more information about the options available.
 
 ## Accessing Tickets
 
-You can access ticket information directly through the Ruby interface.
-
-```ruby
-sirportly.tickets                   #=> A set of all tickets (paginated)
-sirportly.ticket('AB-123123')       #=> Returns a Sirportly::Ticket object for the passed reference
-sirportly.ticket_search('example')  #=> A set of all tickets matching 'example' from the search
+```php
+sirportly.tickets                   
+sirportly.ticket('AB-123123')       
 ```
 
 You can also access tickets through filter objects.
