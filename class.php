@@ -117,7 +117,22 @@ class Sirportly
       return $query;
     }
     
-   
+     /**
+     * Fetch a list of knowledgebases from your account
+     * @return array list of knowledgebases in an array format.
+     */
+    public function kb_list() {
+      return $this->query('/api/v1/knowledge/list');
+    }
 
+    /**
+     * Return a single knowledgebase tree.
+     * @param  int $kb_id The ID of the knowledgebase you want to load
+     * @return array        The knowledgebase as an array.
+     */
+    public function kb($kb_id) {
+      return $this->query('/api/v1/knowledge/tree', array('kb' => $kb_id));
+    }
+   
 }
 ?>
