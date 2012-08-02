@@ -147,5 +147,21 @@ to query your ticket data through the API. This is primarily used to generate re
 be used to return data for your own purposes.
 
 ```PHP
-$sirportly->spql(array('spql' => 'SELECT COUNT, status.name FROM tickets GROUP BY status.name'));
+$sirportly->spql(array('spql' => 'SELECT COUNT, status.name FROM tickets GROUP BY status.
+```
+
+## Access a list of knowledge bases.
+
+You can get a list of all the knowledgebases in your account by calling:
+
+```PHP
+$sirportly->kb_list()
+```
+
+## Access a single knowledge base
+
+You can access a single knowledge bases' full tree of pages by using:
+
+```PHP
+$sirportly->kb($kb_id = 1234);
 ```
