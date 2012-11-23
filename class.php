@@ -1,4 +1,9 @@
 <?php
+/**
+ * Sirportly PHP API Library
+ * @see https://github.com/sirportly/php-library
+ * @version  1.0
+ */
 class Sirportly
 {
     private $token;
