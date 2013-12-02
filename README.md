@@ -134,7 +134,6 @@ $sirportly->statuses();
 $sirportly->priorities();
 $sirportly->brands();
 $sirportly->users();
-$sirportly->customers();
 ```
 
 You can access the following objects using this method: brands, departments, escalation_paths,
