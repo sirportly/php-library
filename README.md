@@ -137,7 +137,7 @@ $sirportly->users();
 ```
 
 You can access the following objects using this method: brands, departments, escalation_paths,
-filters, priorities, slas, statuses, teams and users.
+filters, priorities, slas, statuses, contacts, teams and users.
 
 ## Executing SPQL queries
 
