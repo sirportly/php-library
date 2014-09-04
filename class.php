@@ -129,5 +129,13 @@ class Sirportly
     return $this->query('/api/v2/users/all', array('page' => $page));
   }
 
+  /**
+  * Fetch a list of contacts from your account
+  * @return array        The contacts as an array.
+  */
+  public function contacts($page=1) {
+    return $this->query('/api/v2/contacts/all', array('page' => $page));
+  }
+
 }
 ?>
