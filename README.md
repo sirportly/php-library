@@ -41,7 +41,7 @@ for more information about the options available.
 
 ```php
 $sirportly->tickets();                   
-$sirportly->ticket(array('reference' => 'AB-123123');      
+$sirportly->ticket(array('reference' => 'AB-123123'));      
 ```
 
 ## Changing ticket properties
