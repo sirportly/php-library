@@ -1,4 +1,7 @@
 <?php
+
+namespace Sirportly;
+
 /**
 * Sirportly PHP API Library
 * @see https://github.com/sirportly/php-library

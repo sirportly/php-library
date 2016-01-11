@@ -5,7 +5,7 @@ This library allows you to interact with your Sirportly data using PHP.
 ## Setting up a Sirportly Client
 
 ```php
-$sirportly = new Sirportly('the-token','the-secret');
+$sirportly = new \Sirportly\Sirportly('the-token','the-secret');
 ```
 
 ## Creating a ticket

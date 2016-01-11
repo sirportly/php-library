@@ -10,7 +10,9 @@
     ],
     "minimum-stability": "stable",
     "autoload": {
-        "classmap": ["class.php"]
+        "psr-4": {
+            "Sirportly\\": "src"
+        }
     },
     "require": {
 
