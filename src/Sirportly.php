@@ -30,10 +30,11 @@ class Sirportly
   private function query($action,$postdata=array()) {
     $curl = curl_init();
     $query_string = "";
+    $url = $this->url . $action;
     foreach ($postdata AS $k=>$v) $query_string .= "$k=".urlencode($v)."&";
     $header = array('X-Auth-Token: '.$this->token, 'X-Auth-Secret: '.$this->secret);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_URL, $this->url.$action);
+    curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_BUFFERSIZE, 131072);
     curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $query_string);
@@ -44,7 +45,7 @@ class Sirportly
     $info = curl_getinfo($curl);
 
     if ($result === false || !in_array($info['http_code'], [200, 201])) {
-        $error = "No cURL data returned for $action [". $info['http_code']. "]";
+        $error = "No cURL data returned for $url [http error: ". $info['http_code']. "]";
         if (curl_error($curl)) {
             $error .= "\n" . curl_error($curl);
         }
