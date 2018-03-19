@@ -13,7 +13,7 @@ class Sirportly
   private $secret;
   private $url;
 
-  public function __construct($token,$secret,$url='api.sirportly.com') {
+  public function __construct($token,$secret,$url='https://api.sirportly.com') {
     $this->token  = $token;
     $this->secret = $secret;
     $this->url    = $url;
@@ -24,9 +24,7 @@ class Sirportly
     $query_string = "";
     foreach ($postdata AS $k=>$v) $query_string .= "$k=".urlencode($v)."&";
     $header = array('X-Auth-Token: '.$this->token, 'X-Auth-Secret: '.$this->secret);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
     curl_setopt($curl, CURLOPT_URL, $this->url.$action);
     curl_setopt($curl, CURLOPT_BUFFERSIZE, 131072);
     curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
@@ -35,7 +33,7 @@ class Sirportly
 
     $result = curl_exec($curl);
     curl_close($curl);
-    $decode = json_decode($result,true); 
+    $decode = json_decode($result,true);
     return $decode;
   }
 
