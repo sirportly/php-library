@@ -2,6 +2,8 @@
 
 namespace Sirportly;
 
+use Sirportly\Exceptions\SirportlyDefaultException;
+
 /**
 * Sirportly PHP API Library
 * @see https://github.com/sirportly/php-library
@@ -19,6 +21,12 @@ class Sirportly
     $this->url    = $url;
   }
 
+    /**
+     * @param $action
+     * @param array $postdata
+     * @return mixed
+     * @throws SirportlyDefaultException
+     */
   private function query($action,$postdata=array()) {
     $curl = curl_init();
     $query_string = "";
@@ -29,16 +37,27 @@ class Sirportly
     curl_setopt($curl, CURLOPT_BUFFERSIZE, 131072);
     curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $query_string);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($curl, CURLOPT_POST, 1);
 
     $result = curl_exec($curl);
+    $info = curl_getinfo($curl);
+
+    if ($result === false || !in_array($info['http_code'], [200, 201])) {
+        $error = "No cURL data returned for $action [". $info['http_code']. "]";
+        if (curl_error($curl)) {
+            $error .= "\n" . curl_error($curl);
+        }
+        throw new SirportlyDefaultException($error);
+    }
+
     curl_close($curl);
     $decode = json_decode($result,true);
     return $decode;
   }
 
   public function ticket($ticket_reference) {
-    return $this->query('/api/v2/tickets/ticket',array('ticket' => $ticket_reference));
+    return $this->query('/api/v2/tickets/ticket', array('ticket' => $ticket_reference));
   }
 
   public function create_ticket($params = array()) {
