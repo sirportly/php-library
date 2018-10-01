@@ -1,7 +1,7 @@
 {
     "name": "atech/sirportly",
     "description": "Interact with your Sirportly data using PHP.",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "aTech Media",
